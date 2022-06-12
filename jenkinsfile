@@ -1,0 +1,21 @@
+node {
+    stage("Hello") {
+        echo "Hello World"
+    }
+}
+
+pipeline {
+  agent { label ‘agentDocker’ } // กำหนด label เพื่อเรียกใช้งาน agent
+    stages {
+      stage(‘Hello’) {
+        steps {
+          script{
+            sh “whoami” //คำสั่งตรวจสอบ user ที่ใช้รันคำสั่งใน pipeline
+            sh “pwd” //คำสั่งในการตรวจสอบ directory ปัจจุบันที่ใช้งานอยู่
+ 
+            sh "uname -a" //คำสั่งในการตรวตสอบข้อมูลของเครื่องที่รัน pipeline
+          }
+        }
+      }
+   }
+}

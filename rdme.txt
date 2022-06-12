@@ -1,0 +1,45 @@
+1. mkdir <name> 
+2. create Dockerfile
+3. build img and push to repo
+    - docker image build -t <userDockerhub>/<name> .
+    - docker image push <userDockerhub>/<name> 
+4.create docker-compose
+5.check logs for get password
+    - docker container logs <container name>
+6.go to  http://localhost:8080
+7.choose Install suggested plugins, and wait until Install finished
+8.create user, and then click save and finished
+
+
+***** agent still not work *****
+--- Launch agent via ssh ---
+    เป็นวิธีการ connect Jenkins agent โดยใช้ private key และ public key ในการ connect ผ่าน ssh
+1.generate private key และ public key ด้วย command
+    ssh-keygen -f ~/.ssh/jenkins_agent_key
+        cat ~/.ssh/jenkins_agent_key
+        cat ~/.ssh/jenkins_agent_key.pub
+2.ไปที่ menu “Manage Jenkins → Manage Credentials → add credential” เพื่อทำการสร้าง credential จาก key ที่เรา generate ไว้
+    - เลือกประเภทของ credential เป็น “SSH Username with private key”
+    - กำหนด ID ของ credential เป็น agent-key
+    - กำหนด Username เป็น username ของเครื่อง Master
+    - เลือกการใส่ key เป็น Enter directly โดยนำข้อมูลของไฟล์ private ที่อยู่ใน path ~/.ssh/jenkins_agent_key มาใส่
+3.pull jenkins/ssh-agent
+4.ไปที่หน้า dashboard ของ Master Node บนเครื่อง MAC แล้วเข้าไปที่ Menu “Manage Jenkins → Manage Node and Clouds → New Node” ทำการตั้งชื่อของ agent และกด Create
+    - Name: ชื่อของ agent ที่สร้าง
+    - Number of executors: จำนวน build ที่ Jenkins agent สามารถทำงานได้พร้อมกัน
+    - Remote root directory: path ของ Jenkins Home ที่เราติดตั้ง Jenkins (ในที่นี้คือ /home/jenkins)
+    - Labels: ชื่อที่กำกับไว้กับ agent node โดยหากมี build ไหนที่ต้องการเรียกใช้งาน agent จะเรียกใช้งานจาก labels นี้
+    - Usage: เป็นการกำหนดว่าจะให้เรียกใช้งาน agent นี้เมื่อไหร่บ้าง โดยเราจะกำหนดเป็น ใช้งานก็ต่อเมื่อมีการเรียกใช้ label ที่เรากำหนดไว้เท่านั้น
+        Launch method: วิธีการ connect agent และ master เข้าด้วยกัน โดยจะมีวิธี connect agent node ได้แก่
+            - Launch agents via ssh — เป็นวิธีการ connect Jenkins agent โดยใช้ private key และ public key ในการ connect ผ่าน ssh
+    - และทำการตั้งค่าใน menu “Launch agents via ssh” ตามนี้ครับ
+        - Host : localhost
+        - Credential : เลือก credential ที่เราสร้างไว้จาก private key
+        - Host Key Verification Strategy : Manually trusted key Verification Strategy
+
+
+
+
+
+
+ref: https://www.cloudbees.com/blog/how-to-install-and-run-jenkins-with-docker-compose

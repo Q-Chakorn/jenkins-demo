@@ -1,0 +1,70 @@
+SSHLauncher{host='agent', port=22, credentialsId='jenkins_agent', jvmOptions='', javaPath='/usr/local/openjdk-11/bin/java', prefixStartSlaveCmd='', suffixStartSlaveCmd='', launchTimeoutSeconds=60, maxNumRetries=10, retryWaitTime=15, sshHostKeyVerificationStrategy=hudson.plugins.sshslaves.verifiers.NonVerifyingKeyVerificationStrategy, tcpNoDelay=true, trackCredentials=true}
+[06/12/22 13:37:35] [SSH] Opening SSH connection to agent:22.
+[06/12/22 13:37:35] [SSH] WARNING: SSH Host Keys are not being verified. Man-in-the-middle attacks may be possible against this connection.
+[06/12/22 13:37:36] [SSH] Authentication successful.
+[06/12/22 13:37:36] [SSH] The remote user's environment is:
+BASH=/bin/bash
+BASHOPTS=checkwinsize:cmdhist:complete_fullquote:extquote:force_fignore:globasciiranges:hostcomplete:interactive_comments:progcomp:promptvars:sourcepath
+BASH_ALIASES=()
+BASH_ARGC=([0]="0")
+BASH_ARGV=()
+BASH_CMDS=()
+BASH_EXECUTION_STRING=set
+BASH_LINENO=()
+BASH_SOURCE=()
+BASH_VERSINFO=([0]="5" [1]="1" [2]="4" [3]="1" [4]="release" [5]="aarch64-unknown-linux-gnu")
+BASH_VERSION='5.1.4(1)-release'
+DIRSTACK=()
+EUID=1000
+GROUPS=()
+HOME=/home/jenkins
+HOSTNAME=7ececfc3d3e9
+HOSTTYPE=aarch64
+IFS=$' \t\n'
+JAVA_HOME=/opt/java/openjdk
+JENKINS_AGENT_HOME=/home/jenkins
+JENKINS_AGENT_SSH_PUBKEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCu9BqYAqUVMqhQRvVo4xvmiUsyif0FjxiOXcqEnZqPLVzUvjAqc8SsjpuCWJ0MdPPW/Ff2fqq+MDl/SQeHt6Fv+J6ki7PW5jeSvgTYn2GOnqLqJ1hl1UsHaPT0IPqDtPIPWg9gqv60xdqgdHatwa3Os1ceFgXfkt//XK/gH5kicW4dGiqkSVFm52KLp6+huXMtDowcKvqbTalOzA8g+qJ3s0aCKdGhg1XN9YaSiCxIe5ID2iwBjyYUu0mNafX09xdFKI3IKsJBuaejN083UFWATjdLuMwpEzD5kZKoNwabpFc5TXOfEBKCeFuyu7WtNoniCtGCr9zHUINJvTOOgnX3JAYGQ6hhyVKfnKbCBWUPlazB4oMxAneas1arR/qvaBwjwWCX0hfcSs/az6jDax1CPlan57tLfbA+mBqpWiswUqR5oCtFMHVtf2WEEZLbL9TNYJqTdHVEHbaMS0diw7SJoMYDcnd9oVBL9b9bqBJGxyYro9easweTJZf8KnUEzns= ikkyusan@Chakorns.local'
+LOGNAME=jenkins
+MACHTYPE=aarch64-unknown-linux-gnu
+MOTD_SHOWN=pam
+OPTERR=1
+OPTIND=1
+OSTYPE=linux-gnu
+PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PIPESTATUS=([0]="0")
+PPID=31
+PS4='+ '
+PWD=/home/jenkins
+SHELL=/bin/bash
+SHELLOPTS=braceexpand:hashall:interactive-comments
+SHLVL=1
+SSH_CLIENT='172.24.0.3 43762 22'
+SSH_CONNECTION='172.24.0.3 43762 172.24.0.2 22'
+TERM=dumb
+UID=1000
+USER=jenkins
+_=']'
+[06/12/22 13:37:36] [SSH] Starting sftp client.
+[06/12/22 13:37:36] [SSH] Remote file system root /Users/ikkyusan/Desktop/jenkins-demo/agent does not exist. Will try to create it...
+java.io.IOException: Could not copy remoting.jar into '/Users/ikkyusan/Desktop/jenkins-demo/agent' on agent
+	at hudson.plugins.sshslaves.SSHLauncher.copyAgentJar(SSHLauncher.java:737)
+	at hudson.plugins.sshslaves.SSHLauncher.lambda$launch$0(SSHLauncher.java:456)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+Caused by: java.io.IOException: Failed to mkdir /Users
+	at com.trilead.ssh2.jenkins.SFTPClient.mkdirs(SFTPClient.java:91)
+	at com.trilead.ssh2.jenkins.SFTPClient.mkdirs(SFTPClient.java:86)
+	at com.trilead.ssh2.jenkins.SFTPClient.mkdirs(SFTPClient.java:86)
+	at com.trilead.ssh2.jenkins.SFTPClient.mkdirs(SFTPClient.java:86)
+	at com.trilead.ssh2.jenkins.SFTPClient.mkdirs(SFTPClient.java:86)
+	at hudson.plugins.sshslaves.SSHLauncher.copyAgentJar(SSHLauncher.java:694)
+	... 5 more
+Caused by: com.trilead.ssh2.SFTPException: Permission denied (SSH_FX_PERMISSION_DENIED: The user does not have sufficient permissions to perform the operation.)
+	at com.trilead.ssh2.SFTPv3Client.expectStatusOKMessage(SFTPv3Client.java:555)
+	at com.trilead.ssh2.SFTPv3Client.mkdir(SFTPv3Client.java:955)
+	at com.trilead.ssh2.jenkins.SFTPClient.mkdirs(SFTPClient.java:89)
+	... 10 more
+[06/12/22 13:37:36] Launch failed - cleaning up connection
+[06/12/22 13:37:36] [SSH] Connection closed.

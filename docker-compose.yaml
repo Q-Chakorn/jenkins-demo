@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - /Users/ikkyusan/Desktop/jenkins-demo/jenkins-home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+  agent:
+    container_name: agent
+    image: jenkins/ssh-agent:jdk11
+    privileged: true
+    user: root
+    expose:
+      - 22
+    environment:
+      - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCu9BqYAqUVMqhQRvVo4xvmiUsyif0FjxiOXcqEnZqPLVzUvjAqc8SsjpuCWJ0MdPPW/Ff2fqq+MDl/SQeHt6Fv+J6ki7PW5jeSvgTYn2GOnqLqJ1hl1UsHaPT0IPqDtPIPWg9gqv60xdqgdHatwa3Os1ceFgXfkt//XK/gH5kicW4dGiqkSVFm52KLp6+huXMtDowcKvqbTalOzA8g+qJ3s0aCKdGhg1XN9YaSiCxIe5ID2iwBjyYUu0mNafX09xdFKI3IKsJBuaejN083UFWATjdLuMwpEzD5kZKoNwabpFc5TXOfEBKCeFuyu7WtNoniCtGCr9zHUINJvTOOgnX3JAYGQ6hhyVKfnKbCBWUPlazB4oMxAneas1arR/qvaBwjwWCX0hfcSs/az6jDax1CPlan57tLfbA+mBqpWiswUqR5oCtFMHVtf2WEEZLbL9TNYJqTdHVEHbaMS0diw7SJoMYDcnd9oVBL9b9bqBJGxyYro9easweTJZf8KnUEzns= ikkyusan@Chakorns.local
